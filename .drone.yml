@@ -1,0 +1,19 @@
+kind: pipeline
+type: docker
+name: build
+
+steps:
+  - name: docker-build
+    image: plugins/docker
+    settings:
+      repo: gigafyde/image-gen-baseimage
+      username: gigafyde
+      password:
+        from_secret: docker_token
+      tags: latest
+      force_tag: true
+    when:
+      branch:
+        - master
+      event:
+        - push
